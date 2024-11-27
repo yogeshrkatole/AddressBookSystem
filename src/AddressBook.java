@@ -24,4 +24,13 @@ public class AddressBook {
 			}
 		}
 	}
+
+	public ContactAddress getContactAddressByName(String fullName) {
+		for (ContactAddress contactAddress : contactAddresses) {
+			if ((contactAddress.getFirstName() + " " + contactAddress.getLastName()).equalsIgnoreCase(fullName)) {
+				return contactAddress;
+			}
+		}
+		return null;
+	}
 }

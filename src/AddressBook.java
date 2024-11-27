@@ -33,4 +33,13 @@ public class AddressBook {
 		}
 		return null;
 	}
+	
+	public boolean deleteContactAddress(String fullName) { 
+        ContactAddress contactAddress = getContactAddressByName(fullName); 
+        if (contactAddress != null) { 
+            contactAddresses.remove(contactAddress); 
+            return true; 
+        }
+        return false;
+    }
 }

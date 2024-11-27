@@ -5,7 +5,37 @@ public class AddressBookMainClass {
 		System.out.println("Welcome to Address Book Program");
 
 		Scanner scanner = new Scanner(System.in);
+		AddressBook addressBook = new AddressBook();
+        boolean b=true;
+        while (b) { 
+            System.out.println("Choose an option:");
+            System.out.println("1 for Add New Contact");
+            System.out.println("2 for Display All Contacts");
+            System.out.println("3 for Exit");
+            System.out.print("Enter option in integer like 1 or 2 ");
+            
+            int option = Integer.parseInt(scanner.nextLine());
 
+            switch (option) {
+                case 1:
+                    addContactaddress(scanner, addressBook); 
+                    break;
+
+                case 2:
+                    addressBook.showContactAddresses();
+                    break;
+                case 3:
+                    System.out.println("Exit from AddressBook");
+                    b=false;
+                    break;  
+                default:
+                    System.out.println("Invalid option, please try again.");
+            }
+        }
+       
+	}
+	
+	private static void addContactaddress(Scanner scanner, AddressBook addressBook) {
 		System.out.print("Enter First Name: ");
 		String firstName = scanner.nextLine();
 
@@ -29,10 +59,9 @@ public class AddressBookMainClass {
 
 		System.out.print("Enter Email: ");
 		String email = scanner.nextLine();
-
+		
 		ContactAddress contactAddress = new ContactAddress(firstName, lastName, address, city, state, zip, phoneNumber,
 				email);
-		contactAddress.showInfo();
-		scanner.close();
+		addressBook.addContactAddress(contactAddress);
 	}
 }

@@ -1,6 +1,15 @@
+import java.util.Objects;
 
 public class ContactAddress {
 	private String firstName;
+	private String lastName;
+	private String address;
+	private String city;
+	private String state;
+	private String zip;
+	private String phoneNumber;
+	private String email;
+
 
 	public ContactAddress(String firstName, String lastName, String address, String city, String state, String zip,
 			String phoneNumber, String email) {
@@ -15,14 +24,7 @@ public class ContactAddress {
 		this.email = email;
 	}
 
-	private String lastName;
-	private String address;
-	private String city;
-	private String state;
-	private String zip;
-	private String phoneNumber;
-	private String email;
-
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -87,6 +89,18 @@ public class ContactAddress {
 		this.email = email;
 	}
 
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj) return true;
+	        if (obj == null || getClass() != obj.getClass()) return false;
+	        ContactAddress contactAddress = (ContactAddress) obj;
+	        return Objects.equals(firstName, contactAddress.firstName) && Objects.equals(lastName, contactAddress.lastName);
+	    }
+	 @Override
+	    public int hashCode() {
+	        return Objects.hash(firstName.toLowerCase(), lastName.toLowerCase());
+	    }
+	 
 	public void showInfo() {
 		System.out.println("\nShowing Info Of Contact Person");
 		System.out.println("Name: " + firstName + " " + lastName);

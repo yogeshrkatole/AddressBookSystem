@@ -10,9 +10,14 @@ public class AddressBook {
 	}
 
 	public void addContactAddress(ContactAddress contactAddress) {
-		contactAddresses.add(contactAddress);
-		System.out.println("ContactAddress  added successfully!");
-	}
+        if (contactAddresses.stream()
+                .anyMatch(existingContact -> existingContact.equals(contactAddress))) {
+            System.out.println("Duplicate contact.A person with this name already exists in the Address Book.");
+        } else {
+            contactAddresses.add(contactAddress);
+            System.out.println("Contact added successfully!");
+        }
+    }
 
 	public void showContactAddresses() {
 		if (!contactAddresses.isEmpty()) {
@@ -22,17 +27,17 @@ public class AddressBook {
 				System.out.println();
 
 			}
-		}
+		} else {
+            System.out.println("No contacts to display.");
+        }
 	}
 
 	public ContactAddress getContactAddressByName(String fullName) {
-		for (ContactAddress contactAddress : contactAddresses) {
-			if ((contactAddress.getFirstName() + " " + contactAddress.getLastName()).equalsIgnoreCase(fullName)) {
-				return contactAddress;
-			}
-		}
-		return null;
-	}
+        return contactAddresses.stream()
+                .filter(contact -> (contact.getFirstName() + " " + contact.getLastName()).equalsIgnoreCase(fullName))
+                .findFirst()
+                .orElse(null);
+    }
 	
 	public boolean deleteContactAddress(String fullName) { 
         ContactAddress contactAddress = getContactAddressByName(fullName); 

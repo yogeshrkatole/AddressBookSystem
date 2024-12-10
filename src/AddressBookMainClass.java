@@ -9,7 +9,7 @@ public class AddressBookMainClass {
 		boolean b = true;
 		while (b) {
 			System.out.println("Choose an option:");
-			System.out.println("1 for Add New Contact");
+			System.out.println("1 for Add New Contacts");
 			System.out.println("2 for Display All Contacts");
 			System.out.println("3 for Edit");
 			System.out.println("4 for delete");
@@ -20,7 +20,7 @@ public class AddressBookMainClass {
 
 			switch (option) {
 			case 1:
-				addContactaddress(scanner, addressBook);
+				addMultipleContactAddresses(scanner, addressBook);
 				break;
 
 			case 2:
@@ -43,7 +43,7 @@ public class AddressBookMainClass {
 
 	}
 
-	private static void addContactaddress(Scanner scanner, AddressBook addressBook) {
+	private static void addContactAddress(Scanner scanner, AddressBook addressBook) {
 		System.out.print("Enter First Name: ");
 		String firstName = scanner.nextLine();
 
@@ -72,7 +72,17 @@ public class AddressBookMainClass {
 				email);
 		addressBook.addContactAddress(contactAddress);
 	}
-
+	 private static void addMultipleContactAddresses(Scanner scanner, AddressBook addressBook) {
+	        boolean adding = true;
+	        while (adding) {
+	            addContactAddress(scanner, addressBook);
+	            System.out.print("Do you want to add another contact? (yes/no): ");
+	            String response = scanner.nextLine().trim().toLowerCase();
+	            if (!response.equals("yes")) {
+	                adding = false;
+	            }
+	        }
+	    }
 	private static void editContactAddress(Scanner scanner, AddressBook addressBook) {
 		System.out.println("Enter exact First and Last name which you want to edit: ");
 		String fullName = scanner.nextLine();

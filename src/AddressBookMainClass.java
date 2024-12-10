@@ -1,24 +1,92 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBookMainClass {
+	private static Map<String, AddressBook> addressBookSystem = new HashMap<>();
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
 
 		Scanner scanner = new Scanner(System.in);
-		AddressBook addressBook = new AddressBook();
-		boolean b = true;
-		while (b) {
-			System.out.println("Choose an option:");
+        boolean b = true;
+
+        while (b) {
+            System.out.println("Choose an option:");
+            System.out.println("1 for Add a New Address Book");
+            System.out.println("2 for Select Address Book");
+            System.out.println("3 for Display All Address Book Names");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case 1:
+                    addNewAddressBook(scanner);
+                    break;
+                case 2:
+                    selectAddressBook(scanner);
+                    break;
+                case 3:
+                    displayAddressBookNames();
+                    break;
+                case 4:
+                    System.out.println("Exit");
+                    b = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+        scanner.close();
+
+	}
+	private static void addNewAddressBook(Scanner scanner) {
+        System.out.print("Enter a unique name for the new Address Book: ");
+        String name = scanner.nextLine().trim();
+        if (addressBookSystem.containsKey(name)) {
+            System.out.println("Address Book with this name already exists. Please choose different name.");
+        } else {
+            AddressBook newAddressBook = new AddressBook();
+            addressBookSystem.put(name, newAddressBook);
+            System.out.println("Address Book '" + name + "' added successfully.");
+        }
+    }
+	private static void selectAddressBook(Scanner scanner) {
+        System.out.print("Enter the name of the Address Book you want to select: ");
+        String name = scanner.nextLine().trim();
+        AddressBook selectedAddressBook = addressBookSystem.get(name);
+
+        if (selectedAddressBook != null) {
+            System.out.println("You are now managing Address Book: " + name);
+            manageAddressBook(scanner, selectedAddressBook);
+        } else {
+            System.out.println("Address Book with name '" + name + "' does not exist.");
+        }
+    }
+	private static void displayAddressBookNames() {
+        if (addressBookSystem.isEmpty()) {
+            System.out.println("No Address Book available.");
+        } else {
+            System.out.println("Existing Address Books:");
+            for (String name : addressBookSystem.keySet()) {
+                System.out.println("- " + name);
+            }
+        }
+    }
+	private static void manageAddressBook(Scanner scanner, AddressBook addressBook) {
+        boolean b = true;
+        while (b) {
+           System.out.println("Choose an option for this AddressBook:");
 			System.out.println("1 for Add New Contacts");
 			System.out.println("2 for Display All Contacts");
 			System.out.println("3 for Edit");
 			System.out.println("4 for delete");
 			System.out.println("5 for Exit");
 			System.out.print("Enter option in integer like 1 or 2 ");
+            int option = Integer.parseInt(scanner.nextLine());
 
-			int option = Integer.parseInt(scanner.nextLine());
-
-			switch (option) {
+            switch (option) {
 			case 1:
 				addMultipleContactAddresses(scanner, addressBook);
 				break;
@@ -38,11 +106,9 @@ public class AddressBookMainClass {
 				break;
 			default:
 				System.out.println("Invalid option, please try again.");
-			}
-		}
-
+			}  
+         }
 	}
-
 	private static void addContactAddress(Scanner scanner, AddressBook addressBook) {
 		System.out.print("Enter First Name: ");
 		String firstName = scanner.nextLine();

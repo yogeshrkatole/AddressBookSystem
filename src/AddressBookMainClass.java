@@ -1,6 +1,9 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddressBookMainClass {
 	private static Map<String, AddressBook> addressBookSystem = new HashMap<>();
@@ -82,7 +85,8 @@ public class AddressBookMainClass {
 			System.out.println("2 for Display All Contacts");
 			System.out.println("3 for Edit");
 			System.out.println("4 for delete");
-			System.out.println("5 for Exit");
+			System.out.println("5  for Search by City or State");
+			System.out.println("6 for Exit");
 			System.out.print("Enter option in integer like 1 or 2 ");
             int option = Integer.parseInt(scanner.nextLine());
 
@@ -101,6 +105,9 @@ public class AddressBookMainClass {
 				deleteContactAddress(scanner, addressBook);
 				break;
 			case 5:
+				searchByCityOrState(scanner);
+				break;
+			case 6:
 				System.out.println("Exit from AddressBook");
 				b = false;
 				break;
@@ -223,4 +230,30 @@ public class AddressBookMainClass {
             System.out.println("ContactAddress not exist."); 
         }
     }
+	
+	private static void searchByCityOrState(Scanner scanner) {
+	    System.out.print("Enter city or state to search: ");
+	    String place = scanner.nextLine().trim(); 
+
+	    List<ContactAddress> searchResults = new ArrayList<>();
+	    for (AddressBook addressBook : addressBookSystem.values()) {
+	        List<ContactAddress> filteredResults = addressBook.getContactAddresses().stream()
+	                .filter(contact -> contact.getCity().equalsIgnoreCase(place) || contact.getState().equalsIgnoreCase(place))
+	                .collect(Collectors.toList());
+	        
+	        searchResults.addAll(filteredResults);
+	    }
+
+	    if (!searchResults.isEmpty()) {
+	        System.out.println("Contacts in the city or state " + place + ":");
+	        for (ContactAddress contact : searchResults) {
+	            contact.showInfo();
+	        }
+	    } else {
+	        System.out.println("No contacts found in the city or state " + place);
+	    }
+	}
+
+
+
 }

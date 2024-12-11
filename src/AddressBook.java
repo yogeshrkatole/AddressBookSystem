@@ -1,6 +1,8 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AddressBook {
 	private List<ContactAddress> contactAddresses;
@@ -39,6 +41,10 @@ public class AddressBook {
                 .orElse(null);
     }
 	
+	public List<ContactAddress> getContactAddresses() {
+        return contactAddresses;
+    }
+	
 	public boolean deleteContactAddress(String fullName) { 
         ContactAddress contactAddress = getContactAddressByName(fullName); 
         if (contactAddress != null) { 
@@ -47,4 +53,6 @@ public class AddressBook {
         }
         return false;
     }
+	
+	
 }

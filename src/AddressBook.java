@@ -90,5 +90,34 @@ public class AddressBook {
         return false;
     }
 	
+	public Map<String, Long> countContactsByCity() {
+        return contactAddresses.stream()
+            .collect(Collectors.groupingBy(ContactAddress::getCity, Collectors.counting()));
+    }
+
+    public Map<String, Long> countContactsByState() {
+        return contactAddresses.stream()
+            .collect(Collectors.groupingBy(ContactAddress::getState, Collectors.counting()));
+    }
+
+    public void displayContactCountsByCity() {
+        Map<String, Long> countsByCity = countContactsByCity();
+        if (countsByCity.isEmpty()) {
+            System.out.println("No contacts available to display counts by city.");
+        } else {
+            countsByCity.forEach((city, count) ->
+                System.out.println("City: " + city + ", Number of Contacts: " + count));
+        }
+    }
+
+    public void displayContactCountsByState() {
+        Map<String, Long> countsByState = countContactsByState();
+        if (countsByState.isEmpty()) {
+            System.out.println("No contacts available to display counts by state.");
+        } else {
+            countsByState.forEach((state, count) ->
+                System.out.println("State: " + state + ", Number of Contacts: " + count));
+        }
+    }
 	
 }

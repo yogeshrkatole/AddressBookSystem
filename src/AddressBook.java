@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+import java.util.Collections;
 public class AddressBook {
 	private List<ContactAddress> contactAddresses;
 	private Map<String, List<ContactAddress>> cityDictionary;
@@ -48,7 +48,15 @@ public class AddressBook {
         cityDictionary.getOrDefault(contactAddress.getCity(), new ArrayList<>()).remove(contactAddress);
         stateDictionary.getOrDefault(contactAddress.getState(), new ArrayList<>()).remove(contactAddress);
     }
-	
+	public void showContactsByCity(String city) {
+        cityDictionary.getOrDefault(city, Collections.emptyList())
+                .forEach(ContactAddress::showInfo);
+    }
+
+    public void showContactsByState(String state) {
+        stateDictionary.getOrDefault(state, Collections.emptyList())
+                .forEach(ContactAddress::showInfo);
+    }
 	public void showContactAddresses() {
 		if (!contactAddresses.isEmpty()) {
 

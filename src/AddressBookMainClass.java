@@ -86,7 +86,9 @@ public class AddressBookMainClass {
 			System.out.println("3 for Edit");
 			System.out.println("4 for delete");
 			System.out.println("5  for Search by City or State");
-			System.out.println("6 for Exit");
+			System.out.println("6 for Display Contacts by City");
+	        System.out.println("7 for Display Contacts by State");
+			System.out.println("8 for Exit");
 			System.out.print("Enter option in integer like 1 or 2 ");
             int option = Integer.parseInt(scanner.nextLine());
 
@@ -108,6 +110,16 @@ public class AddressBookMainClass {
 				searchByCityOrState(scanner);
 				break;
 			case 6:
+                System.out.print("Enter city: ");
+                String city = scanner.nextLine();
+                addressBook.showContactsByCity(city);
+                break;
+            case 7:
+                System.out.print("Enter state: ");
+                String state = scanner.nextLine();
+                addressBook.showContactsByState(state);
+                break;
+			case 8:
 				System.out.println("Exit from AddressBook");
 				b = false;
 				break;

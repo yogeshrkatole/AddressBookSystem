@@ -77,28 +77,31 @@ public class AddressBookMainClass {
             }
         }
     }
+
 	private static void manageAddressBook(Scanner scanner, AddressBook addressBook) {
-        boolean b = true;
-        while (b) {
-           System.out.println("Choose an option for this AddressBook:");
+		boolean b = true;
+		while (b) {
+			System.out.println("Choose an option for this AddressBook:");
 			System.out.println("1 for Add New Contacts");
 			System.out.println("2 for Display All Contacts");
 			System.out.println("3 for Edit");
 			System.out.println("4 for delete");
 			System.out.println("5  for Search by City or State");
 			System.out.println("6 for Display Contacts by City");
-	        System.out.println("7 for Display Contacts by State");
-	        System.out.println("8 Display Contact Counts by City");
-	        System.out.println("9 Display Contact Counts by State");
-	        System.out.println("10 Display Contacts Sorted by Name");
-	        System.out.println("11 Display Contacts Sorted by City");
-	        System.out.println("12 Display Contacts Sorted by State");
-	        System.out.println("13 Display Contacts Sorted by ZIP Code");
-			System.out.println("14 for Exit");
+			System.out.println("7 for Display Contacts by State");
+			System.out.println("8 Display Contact Counts by City");
+			System.out.println("9 Display Contact Counts by State");
+			System.out.println("10 Display Contacts Sorted by Name");
+			System.out.println("11 Display Contacts Sorted by City");
+			System.out.println("12 Display Contacts Sorted by State");
+			System.out.println("13 Display Contacts Sorted by ZIP Code");
+			System.out.println("14 Save Contacts to File");
+			System.out.println("15 Load Contacts from File");
+			System.out.println("16 for Exit");
 			System.out.print("Enter option in integer like 1 or 2 ");
-            int option = Integer.parseInt(scanner.nextLine());
+			int option = Integer.parseInt(scanner.nextLine());
 
-            switch (option) {
+			switch (option) {
 			case 1:
 				addMultipleContactAddresses(scanner, addressBook);
 				break;
@@ -116,41 +119,51 @@ public class AddressBookMainClass {
 				searchByCityOrState(scanner);
 				break;
 			case 6:
-                System.out.print("Enter city: ");
-                String city = scanner.nextLine();
-                addressBook.showContactsByCity(city);
-                break;
-            case 7:
-                System.out.print("Enter state: ");
-                String state = scanner.nextLine();
-                addressBook.showContactsByState(state);
-                break;
-            case 8:
-                addressBook.displayContactCountsByCity();
-                break;
-            case 9:
-                addressBook.displayContactCountsByState();
-                break;
-            case 10:
-                addressBook.displayContactsSortedByName();
-                break;
-            case 11:
-                addressBook.displayContactsSortedByCity();
-                break;
-            case 12:
-                addressBook.displayContactsSortedByState();
-                break;
-            case 13:
-                addressBook.displayContactsSortedByZipCode();
-                break;
+				System.out.print("Enter city: ");
+				String city = scanner.nextLine();
+				addressBook.showContactsByCity(city);
+				break;
+			case 7:
+				System.out.print("Enter state: ");
+				String state = scanner.nextLine();
+				addressBook.showContactsByState(state);
+				break;
+			case 8:
+				addressBook.displayContactCountsByCity();
+				break;
+			case 9:
+				addressBook.displayContactCountsByState();
+				break;
+			case 10:
+				addressBook.displayContactsSortedByName();
+				break;
+			case 11:
+				addressBook.displayContactsSortedByCity();
+				break;
+			case 12:
+				addressBook.displayContactsSortedByState();
+				break;
+			case 13:
+				addressBook.displayContactsSortedByZipCode();
+				break;
 			case 14:
+				System.out.print("Enter filename to save contacts: ");
+				String saveFilename = scanner.nextLine();
+				addressBook.saveToFile(saveFilename);
+				break;
+			case 15:
+				System.out.print("Enter filename to load contacts: ");
+				String loadFilename = scanner.nextLine();
+				addressBook.loadContactsFromFile(loadFilename);
+				break;
+			case 16:
 				System.out.println("Exit from AddressBook");
 				b = false;
 				break;
 			default:
 				System.out.println("Invalid option, please try again.");
-			}  
-         }
+			}
+		}
 	}
 	private static void addContactAddress(Scanner scanner, AddressBook addressBook) {
 		System.out.print("Enter First Name: ");

@@ -1,4 +1,9 @@
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -154,4 +159,29 @@ public class AddressBook {
         sortedByZipCode.forEach(System.out::println);
     }
     
+    public void saveToFile(String filename) {
+        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(filename))) {
+            os.writeObject(contactAddresses);
+            System.out.println("Contacts have been saved to " + filename);
+        } catch (IOException e) {
+            System.err.println("Error saving contacts: " + e.getMessage());
+        }
+    }
+    
+	public void loadContactsFromFile(String filename) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+			List<ContactAddress> loadContactAddressesFromFile = (List<ContactAddress>) ois.readObject();
+			System.out.println("Contacts have been loaded from " + filename);
+			if (loadContactAddressesFromFile != null && !loadContactAddressesFromFile.isEmpty()) {
+				for (ContactAddress contactAddress : loadContactAddressesFromFile) {
+					contactAddress.showInfo();
+					System.out.println();
+				}
+			} else {
+				System.out.println("No contacts to display.");
+			}
+		} catch (IOException | ClassNotFoundException e) {
+			System.err.println("Error loading contacts: " + e.getMessage());
+		}
+	}
 }

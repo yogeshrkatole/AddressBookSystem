@@ -43,7 +43,15 @@ public class AddressBook {
 	    }
 	    stateContacts.add(contactAddress);
 	}
-	
+	public void showContactsByCity(String city) {
+        cityDictionary.getOrDefault(city, Collections.emptyList())
+                .forEach(ContactAddress::showInfo);
+    }
+
+    public void showContactsByState(String state) {
+        stateDictionary.getOrDefault(state, Collections.emptyList())
+                .forEach(ContactAddress::showInfo);
+    }
 	private void removeFromDictionaries(ContactAddress contactAddress) {
         cityDictionary.getOrDefault(contactAddress.getCity(), new ArrayList<>()).remove(contactAddress);
         stateDictionary.getOrDefault(contactAddress.getState(), new ArrayList<>()).remove(contactAddress);

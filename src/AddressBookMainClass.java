@@ -90,7 +90,8 @@ public class AddressBookMainClass {
 	        System.out.println("7 for Display Contacts by State");
 	        System.out.println("8 Display Contact Counts by City");
 	        System.out.println("9 Display Contact Counts by State");
-			System.out.println("10 for Exit");
+	        System.out.println("10 Display Contacts Sorted by Name");
+			System.out.println("11 for Exit");
 			System.out.print("Enter option in integer like 1 or 2 ");
             int option = Integer.parseInt(scanner.nextLine());
 
@@ -127,7 +128,10 @@ public class AddressBookMainClass {
             case 9:
                 addressBook.displayContactCountsByState();
                 break;
-			case 10:
+            case 10:
+                addressBook.displayContactsSortedByName();
+                break;
+			case 11:
 				System.out.println("Exit from AddressBook");
 				b = false;
 				break;

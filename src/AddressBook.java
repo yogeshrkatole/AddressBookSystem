@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.Collections;
+import java.util.Comparator;
+
 public class AddressBook {
 	private List<ContactAddress> contactAddresses;
 	private Map<String, List<ContactAddress>> cityDictionary;
@@ -120,4 +122,15 @@ public class AddressBook {
         }
     }
 	
+    public void displayContactsSortedByName() {
+        if (contactAddresses.isEmpty()) {
+            System.out.println("No contacts to display.");
+            return;
+        }
+
+        contactAddresses.stream()
+            .sorted(Comparator.comparing(contact -> (contact.getFirstName() + " " + contact.getLastName())))
+            .forEach(System.out::println);
+    }
+    
 }

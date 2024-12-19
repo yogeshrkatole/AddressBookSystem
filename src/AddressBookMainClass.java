@@ -91,7 +91,10 @@ public class AddressBookMainClass {
 	        System.out.println("8 Display Contact Counts by City");
 	        System.out.println("9 Display Contact Counts by State");
 	        System.out.println("10 Display Contacts Sorted by Name");
-			System.out.println("11 for Exit");
+	        System.out.println("11 Display Contacts Sorted by City");
+	        System.out.println("12 Display Contacts Sorted by State");
+	        System.out.println("13 Display Contacts Sorted by ZIP Code");
+			System.out.println("14 for Exit");
 			System.out.print("Enter option in integer like 1 or 2 ");
             int option = Integer.parseInt(scanner.nextLine());
 
@@ -131,7 +134,16 @@ public class AddressBookMainClass {
             case 10:
                 addressBook.displayContactsSortedByName();
                 break;
-			case 11:
+            case 11:
+                addressBook.displayContactsSortedByCity();
+                break;
+            case 12:
+                addressBook.displayContactsSortedByState();
+                break;
+            case 13:
+                addressBook.displayContactsSortedByZipCode();
+                break;
+			case 14:
 				System.out.println("Exit from AddressBook");
 				b = false;
 				break;

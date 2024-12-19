@@ -133,4 +133,25 @@ public class AddressBook {
             .forEach(System.out::println);
     }
     
+    public void displayContactsSortedByCity() {
+        List<ContactAddress> sortedByCity = contactAddresses.stream()
+            .sorted(Comparator.comparing(ContactAddress::getCity))
+            .collect(Collectors.toList());
+        sortedByCity.forEach(System.out::println);
+    }
+
+    public void displayContactsSortedByState() {
+        List<ContactAddress> sortedByState = contactAddresses.stream()
+            .sorted(Comparator.comparing(ContactAddress::getState))
+            .collect(Collectors.toList());
+        sortedByState.forEach(System.out::println);
+    }
+
+    public void displayContactsSortedByZipCode() {
+        List<ContactAddress> sortedByZipCode = contactAddresses.stream()
+            .sorted(Comparator.comparing(ContactAddress::getZip))
+            .collect(Collectors.toList());
+        sortedByZipCode.forEach(System.out::println);
+    }
+    
 }

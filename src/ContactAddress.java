@@ -11,6 +11,8 @@ public class ContactAddress implements Serializable {
 	private String phoneNumber;
 	private String email;
 
+	public ContactAddress() {}
+	
 	public ContactAddress(String firstName, String lastName, String address, String city, String state, String zip,
 			String phoneNumber, String email) {
 		super();

@@ -7,76 +7,80 @@ import java.util.stream.Collectors;
 
 public class AddressBookMainClass {
 	private static Map<String, AddressBook> addressBookSystem = new HashMap<>();
+
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program");
 
 		Scanner scanner = new Scanner(System.in);
-        boolean b = true;
+		boolean b = true;
 
-        while (b) {
-            System.out.println("Choose an option:");
-            System.out.println("1 for Add a New Address Book");
-            System.out.println("2 for Select Address Book");
-            System.out.println("3 for Display All Address Book Names");
-            System.out.println("4. Exit");
-            System.out.print("Enter your choice: ");
+		while (b) {
+			System.out.println("Choose an option:");
+			System.out.println("1 for Add a New Address Book");
+			System.out.println("2 for Select Address Book");
+			System.out.println("3 for Display All Address Book Names");
+			System.out.println("4. Exit");
+			System.out.print("Enter your choice: ");
 
-            int choice = Integer.parseInt(scanner.nextLine());
+			int choice = Integer.parseInt(scanner.nextLine());
 
-            switch (choice) {
-                case 1:
-                    addNewAddressBook(scanner);
-                    break;
-                case 2:
-                    selectAddressBook(scanner);
-                    break;
-                case 3:
-                    displayAddressBookNames();
-                    break;
-                case 4:
-                    System.out.println("Exit");
-                    b = false;
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-            }
-        }
-        scanner.close();
+			switch (choice) {
+			case 1:
+				addNewAddressBook(scanner);
+				break;
+			case 2:
+				selectAddressBook(scanner);
+				break;
+			case 3:
+				displayAddressBookNames();
+				break;
+			case 4:
+				System.out.println("Exit");
+				b = false;
+				break;
+			default:
+				System.out.println("Invalid option. Please try again.");
+			}
+		}
+		scanner.close();
 
 	}
-	private static void addNewAddressBook(Scanner scanner) {
-        System.out.print("Enter a unique name for the new Address Book: ");
-        String name = scanner.nextLine().trim();
-        if (addressBookSystem.containsKey(name)) {
-            System.out.println("Address Book with this name already exists. Please choose different name.");
-        } else {
-            AddressBook newAddressBook = new AddressBook();
-            addressBookSystem.put(name, newAddressBook);
-            System.out.println("Address Book '" + name + "' added successfully.");
-        }
-    }
-	private static void selectAddressBook(Scanner scanner) {
-        System.out.print("Enter the name of the Address Book you want to select: ");
-        String name = scanner.nextLine().trim();
-        AddressBook selectedAddressBook = addressBookSystem.get(name);
 
-        if (selectedAddressBook != null) {
-            System.out.println("You are now managing Address Book: " + name);
-            manageAddressBook(scanner, selectedAddressBook);
-        } else {
-            System.out.println("Address Book with name '" + name + "' does not exist.");
-        }
-    }
+	private static void addNewAddressBook(Scanner scanner) {
+		System.out.print("Enter a unique name for the new Address Book: ");
+		String name = scanner.nextLine().trim();
+		if (addressBookSystem.containsKey(name)) {
+			System.out.println("Address Book with this name already exists. Please choose different name.");
+		} else {
+			AddressBook newAddressBook = new AddressBook();
+			addressBookSystem.put(name, newAddressBook);
+			System.out.println("Address Book '" + name + "' added successfully.");
+		}
+	}
+
+	private static void selectAddressBook(Scanner scanner) {
+		System.out.print("Enter the name of the Address Book you want to select: ");
+		String name = scanner.nextLine().trim();
+		AddressBook selectedAddressBook = addressBookSystem.get(name);
+
+		if (selectedAddressBook != null) {
+			System.out.println("You are now managing Address Book: " + name);
+			manageAddressBook(scanner, selectedAddressBook);
+		} else {
+			System.out.println("Address Book with name '" + name + "' does not exist.");
+		}
+	}
+
 	private static void displayAddressBookNames() {
-        if (addressBookSystem.isEmpty()) {
-            System.out.println("No Address Book available.");
-        } else {
-            System.out.println("Existing Address Books:");
-            for (String name : addressBookSystem.keySet()) {
-                System.out.println("- " + name);
-            }
-        }
-    }
+		if (addressBookSystem.isEmpty()) {
+			System.out.println("No Address Book available.");
+		} else {
+			System.out.println("Existing Address Books:");
+			for (String name : addressBookSystem.keySet()) {
+				System.out.println("- " + name);
+			}
+		}
+	}
 
 	private static void manageAddressBook(Scanner scanner, AddressBook addressBook) {
 		boolean b = true;
@@ -99,7 +103,9 @@ public class AddressBookMainClass {
 			System.out.println("15 Load Contacts from File");
 			System.out.println("16 Save Contacts to CSV File");
 			System.out.println("17 Load Contacts from CSV File");
-			System.out.println("18 for Exit");
+			System.out.println("18 Save Contacts to JSON File");
+			System.out.println("19 Load Contacts from JSON File");
+			System.out.println("20 for Exit");
 			System.out.print("Enter option in integer like 1 or 2 ");
 			int option = Integer.parseInt(scanner.nextLine());
 
@@ -159,17 +165,28 @@ public class AddressBookMainClass {
 				addressBook.loadContactsFromFile(loadFilename);
 				break;
 			case 16:
-			    System.out.print("Enter filename to save contacts as CSV: ");
-			    String csvSaveFile = scanner.nextLine();
-			    addressBook.saveContactsToCSV(csvSaveFile);
-			    break;
+				System.out.print("Enter filename to save contacts as CSV: ");
+				String csvSaveFile = scanner.nextLine();
+				addressBook.saveContactsToCSV(csvSaveFile);
+				break;
 
 			case 17:
-			    System.out.print("Enter filename to load contacts from CSV: ");
-			    String csvLoadFile = scanner.nextLine();
-			    addressBook.loadConatctsFromCSV(csvLoadFile);
-			    break;
+				System.out.print("Enter filename to load contacts from CSV: ");
+				String csvLoadFile = scanner.nextLine();
+				addressBook.loadConatctsFromCSV(csvLoadFile);
+				break;
 			case 18:
+				System.out.print("Enter filename to save contacts as JSON: ");
+				String jsonSaveFile = scanner.nextLine();
+				addressBook.saveContactsToJSON(jsonSaveFile);
+				break;
+
+			case 19:
+				System.out.print("Enter filename to load contacts from JSON: ");
+				String jsonLoadFile = scanner.nextLine();
+				addressBook.loadContactsFromJSON(jsonLoadFile);
+				break;
+			case 20:
 				System.out.println("Exit from AddressBook");
 				b = false;
 				break;
@@ -178,6 +195,7 @@ public class AddressBookMainClass {
 			}
 		}
 	}
+
 	private static void addContactAddress(Scanner scanner, AddressBook addressBook) {
 		System.out.print("Enter First Name: ");
 		String firstName = scanner.nextLine();
@@ -207,17 +225,19 @@ public class AddressBookMainClass {
 				email);
 		addressBook.addContactAddress(contactAddress);
 	}
-	 private static void addMultipleContactAddresses(Scanner scanner, AddressBook addressBook) {
-	        boolean adding = true;
-	        while (adding) {
-	            addContactAddress(scanner, addressBook);
-	            System.out.print("Do you want to add another contact? (yes/no): ");
-	            String response = scanner.nextLine().trim().toLowerCase();
-	            if (!response.equals("yes")) {
-	                adding = false;
-	            }
-	        }
-	    }
+
+	private static void addMultipleContactAddresses(Scanner scanner, AddressBook addressBook) {
+		boolean adding = true;
+		while (adding) {
+			addContactAddress(scanner, addressBook);
+			System.out.print("Do you want to add another contact? (yes/no): ");
+			String response = scanner.nextLine().trim().toLowerCase();
+			if (!response.equals("yes")) {
+				adding = false;
+			}
+		}
+	}
+
 	private static void editContactAddress(Scanner scanner, AddressBook addressBook) {
 		System.out.println("Enter exact First and Last name which you want to edit: ");
 		String fullName = scanner.nextLine();
@@ -281,41 +301,40 @@ public class AddressBookMainClass {
 
 		System.out.println("Contact updated successfully!");
 	}
-	private static void deleteContactAddress(Scanner scanner, AddressBook addressBook) { 
-        System.out.print("Enter exact First and Last name which you want to delete: "); 
-        String fullName = scanner.nextLine();
 
-        boolean isDeleted = addressBook.deleteContactAddress(fullName); 
-        if (isDeleted) {
-            System.out.println("ContactAddress deleted successfully."); 
-        } else {
-            System.out.println("ContactAddress not exist."); 
-        }
-    }
-	
-	private static void searchByCityOrState(Scanner scanner) {
-	    System.out.print("Enter city or state to search: ");
-	    String place = scanner.nextLine().trim(); 
+	private static void deleteContactAddress(Scanner scanner, AddressBook addressBook) {
+		System.out.print("Enter exact First and Last name which you want to delete: ");
+		String fullName = scanner.nextLine();
 
-	    List<ContactAddress> searchResults = new ArrayList<>();
-	    for (AddressBook addressBook : addressBookSystem.values()) {
-	        List<ContactAddress> filteredResults = addressBook.getContactAddresses().stream()
-	                .filter(contact -> contact.getCity().equalsIgnoreCase(place) || contact.getState().equalsIgnoreCase(place))
-	                .collect(Collectors.toList());
-	        
-	        searchResults.addAll(filteredResults);
-	    }
-
-	    if (!searchResults.isEmpty()) {
-	        System.out.println("Contacts in the city or state " + place + ":");
-	        for (ContactAddress contact : searchResults) {
-	            contact.showInfo();
-	        }
-	    } else {
-	        System.out.println("No contacts found in the city or state " + place);
-	    }
+		boolean isDeleted = addressBook.deleteContactAddress(fullName);
+		if (isDeleted) {
+			System.out.println("ContactAddress deleted successfully.");
+		} else {
+			System.out.println("ContactAddress not exist.");
+		}
 	}
 
- 
+	private static void searchByCityOrState(Scanner scanner) {
+		System.out.print("Enter city or state to search: ");
+		String place = scanner.nextLine().trim();
+
+		List<ContactAddress> searchResults = new ArrayList<>();
+		for (AddressBook addressBook : addressBookSystem.values()) {
+			List<ContactAddress> filteredResults = addressBook.getContactAddresses().stream().filter(
+					contact -> contact.getCity().equalsIgnoreCase(place) || contact.getState().equalsIgnoreCase(place))
+					.collect(Collectors.toList());
+
+			searchResults.addAll(filteredResults);
+		}
+
+		if (!searchResults.isEmpty()) {
+			System.out.println("Contacts in the city or state " + place + ":");
+			for (ContactAddress contact : searchResults) {
+				contact.showInfo();
+			}
+		} else {
+			System.out.println("No contacts found in the city or state " + place);
+		}
+	}
 
 }

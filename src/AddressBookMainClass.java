@@ -97,7 +97,9 @@ public class AddressBookMainClass {
 			System.out.println("13 Display Contacts Sorted by ZIP Code");
 			System.out.println("14 Save Contacts to File");
 			System.out.println("15 Load Contacts from File");
-			System.out.println("16 for Exit");
+			System.out.println("16 Save Contacts to CSV File");
+			System.out.println("17 Load Contacts from CSV File");
+			System.out.println("18 for Exit");
 			System.out.print("Enter option in integer like 1 or 2 ");
 			int option = Integer.parseInt(scanner.nextLine());
 
@@ -157,6 +159,17 @@ public class AddressBookMainClass {
 				addressBook.loadContactsFromFile(loadFilename);
 				break;
 			case 16:
+			    System.out.print("Enter filename to save contacts as CSV: ");
+			    String csvSaveFile = scanner.nextLine();
+			    addressBook.saveToCSV(csvSaveFile);
+			    break;
+
+			case 17:
+			    System.out.print("Enter filename to load contacts from CSV: ");
+			    String csvLoadFile = scanner.nextLine();
+			    addressBook.loadFromCSV(csvLoadFile);
+			    break;
+			case 18:
 				System.out.println("Exit from AddressBook");
 				b = false;
 				break;

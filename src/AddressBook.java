@@ -1,6 +1,8 @@
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,6 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
+
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -184,4 +191,54 @@ public class AddressBook {
 			System.err.println("Error loading contacts: " + e.getMessage());
 		}
 	}
+	
+	public void saveToCSV(String filename) {
+	    try (CSVWriter writer = new CSVWriter(new FileWriter(filename))) {
+	        // Header row
+	        String[] header = {"First Name", "Last Name", "Address", "City", "State", "ZIP", "Phone", "Email"};
+	        writer.writeNext(header);
+
+	        // Data rows
+	        for (ContactAddress contact : contactAddresses) {
+	            String[] row = {
+	                contact.getFirstName(),
+	                contact.getLastName(),
+	                contact.getAddress(),
+	                contact.getCity(),
+	                contact.getState(),
+	                contact.getZip(),
+	                contact.getPhoneNumber(),
+	                contact.getEmail()
+	            };
+	            writer.writeNext(row);
+	        }
+	        System.out.println("Contacts have been saved to " + filename);
+	    } catch (IOException e) {
+	        System.err.println("Error saving contacts to CSV: " + e.getMessage());
+	    }
+	}
+
+	public void loadFromCSV(String filename) {
+	    try (CSVReader reader = new CSVReader(new FileReader(filename))) {
+	        List<String[]> allData = reader.readAll();
+	        contactAddresses.clear();
+
+	        for (int i = 1; i < allData.size(); i++) { // Assuming the first row is headers
+	            String[] row = allData.get(i);
+	            ContactAddress contact = new ContactAddress(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
+	            contactAddresses.add(contact);
+	        }
+
+	        System.out.println("Contacts have been loaded from " + filename);
+	        System.out.println("Loaded Contacts:");
+
+	      
+	        for (ContactAddress contact : contactAddresses) {
+	            contact.showInfo(); 
+	        }
+	    } catch (IOException | CsvException e) {
+	        System.err.println("Error loading contacts from CSV: " + e.getMessage());
+	    }
+	}
+
 }

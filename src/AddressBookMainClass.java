@@ -161,13 +161,13 @@ public class AddressBookMainClass {
 			case 16:
 			    System.out.print("Enter filename to save contacts as CSV: ");
 			    String csvSaveFile = scanner.nextLine();
-			    addressBook.saveToCSV(csvSaveFile);
+			    addressBook.saveContactsToCSV(csvSaveFile);
 			    break;
 
 			case 17:
 			    System.out.print("Enter filename to load contacts from CSV: ");
 			    String csvLoadFile = scanner.nextLine();
-			    addressBook.loadFromCSV(csvLoadFile);
+			    addressBook.loadConatctsFromCSV(csvLoadFile);
 			    break;
 			case 18:
 				System.out.println("Exit from AddressBook");
@@ -316,6 +316,6 @@ public class AddressBookMainClass {
 	    }
 	}
 
-
+ 
 
 }

@@ -192,7 +192,7 @@ public class AddressBook {
 		}
 	}
 	
-	public void saveToCSV(String filename) {
+	public void saveContactsToCSV(String filename) {
 	    try (CSVWriter writer = new CSVWriter(new FileWriter(filename))) {
 	        // Header row
 	        String[] header = {"First Name", "Last Name", "Address", "City", "State", "ZIP", "Phone", "Email"};
@@ -218,7 +218,7 @@ public class AddressBook {
 	    }
 	}
 
-	public void loadFromCSV(String filename) {
+	public void loadConatctsFromCSV(String filename) {
 	    try (CSVReader reader = new CSVReader(new FileReader(filename))) {
 	        List<String[]> allData = reader.readAll();
 	        contactAddresses.clear();
